@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjc.dao.user.UserMapper">
+    <insert id="add" parameterType="User">
+        insert into smbms_user (userCode, userName, userPassword,
+        gender, birthday, phone, address, userRole, createdBy, creationDate)
+        values (#{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday},
+        #{phone}, #{address}, #{userRole}, #{createdBy}, #{creationDate})
+    </insert>
+
+    <select id="getLoginUser" parameterType="string" resultType="user">
+        select * from smbms_user where userCode = #{userCode}
+    </select>
+</mapper>
