@@ -6,6 +6,7 @@ import com.hjc.tools.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,19 +19,29 @@ public class UserController {
     @Qualifier("userService")
     private UserService userService;
 
+    @RequestMapping("/frame")
+    public String login() {
+        return "frame";
+    }
+
     @RequestMapping("/login.do")
-    public String login(HttpServletRequest request, HttpServletResponse response) {
+    public String doLogin(HttpServletRequest request) {
         System.out.println("login=====================");
-        String userCode = (String) request.getAttribute("userCode");
-        String userPassword = (String) request.getAttribute("userPassword");
+        String userCode = request.getParameter("userCode");
+        String userPassword = request.getParameter("userPassword");
 
         User user = userService.login(userCode, userPassword);
+        System.out.println(user);
         if (user != null) {
             request.getSession().setAttribute(Constants.USER_SESSION, user);
-            return "frame";
+            //重定向到主页面
+            return "redirect:/frame";
         } else {
-            request.setAttribute("error", "用户名或密码不正确");
-            return "redirect:../login.jsp";
+            //设置session返回数据给页面
+            request.getSession().setAttribute("error", "用户名或密码不正确");
+            return "redirect:/login.jsp";
         }
     }
+
+
 }
