@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.hjc.dao.user.UserMapper">
     <insert id="add" parameterType="User">
         insert into smbms_user (userCode, userName, userPassword,
@@ -13,4 +14,26 @@
     <select id="getLoginUser" parameterType="string" resultType="user">
         select * from smbms_user where userCode = #{userCode}
     </select>
+
+    <select id="getUserList" resultType="user">
+        select u.*, r.roleName as userRoleName from smbms_user u, smbms_role r where u.userRole = r.id
+        <if test="userName != null">
+            AND u.userName like "%"#{userName}"%"
+        </if>
+        <if test="userRole > 0">
+            AND u.userRole = #{userRole}
+        </if>
+        order by creationDate DESC limit #{startNo}, #{pageSize}
+    </select>
+
+    <select id="getUserCount" resultType="int">
+        select count(1) as count from smbms_user u, smbms_role r where u.userRole = r.id
+        <if test="userName != null">
+            AND u.userName like "%"#{userName}"%"
+        </if>
+        <if test="userRole > 0">
+            AND u.userRole = #{userRole}
+        </if>
+    </select>
+
 </mapper>

@@ -9,5 +9,6 @@
 
     <mappers>
         <mapper resource="com/hjc/dao/user/UserMapper.xml"/>
+        <mapper resource="com/hjc/dao/role/RoleMapper.xml"/>
     </mappers>
 </configuration>

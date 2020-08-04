@@ -28,7 +28,7 @@ public interface UserMapper {
      * @param pageSize
      * @return
      */
-    List<User> getUserList(String userName, int userRole, int currentPageNo, int pageSize);
+    List<User> getUserList(@Param("userName") String userName, @Param("userRole") int userRole, @Param("startNo") int startNo, @Param("pageSize") int pageSize);
 
     /**
      * 条件查询用户数目
@@ -36,7 +36,7 @@ public interface UserMapper {
      * @param userRole
      * @return
      */
-    int getUserCount(String userName, int userRole);
+    int getUserCount(@Param("userName") String userName, @Param("userRole") int userRole);
 
     /**
      * 通过id删除用户

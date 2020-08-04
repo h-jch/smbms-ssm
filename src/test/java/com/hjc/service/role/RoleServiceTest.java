@@ -1,0 +1,29 @@
+package com.hjc.service.role;
+
+import com.hjc.pojo.Role;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
+
+public class RoleServiceTest {
+
+    private ApplicationContext context;
+    private RoleService roleService;
+
+    @Before
+    public void init() {
+        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        roleService = context.getBean("roleService", RoleServiceImpl.class);
+    }
+
+    @Test
+    public void testGetRoleList() {
+        List<Role> roleList = roleService.getRoleList();
+        for (Role role : roleList) {
+            System.out.println(role);
+        }
+    }
+}

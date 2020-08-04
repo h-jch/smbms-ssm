@@ -20,6 +20,15 @@ public class User implements Serializable {
 	
 	private Integer age;//年龄
 
+	private String userRoleName;
+
+	public String getUserRoleName() {
+		return userRoleName;
+	}
+
+	public void setUserRoleName(String userRoleName) {
+		this.userRoleName = userRoleName;
+	}
 
 	public Integer getAge() {
 		/*long time = System.currentTimeMillis()-birthday.getTime();

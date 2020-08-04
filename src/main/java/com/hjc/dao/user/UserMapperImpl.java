@@ -24,13 +24,13 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public List<User> getUserList(String userName, int userRole, int currentPageNo, int pageSize) {
-        return null;
+    public List<User> getUserList(String userName, int userRole, int startNo, int pageSize) {
+        return sqlSession.getMapper(UserMapper.class).getUserList(userName, userRole, startNo, pageSize);
     }
 
     @Override
     public int getUserCount(String userName, int userRole) {
-        return 0;
+        return sqlSession.getMapper(UserMapper.class).getUserCount(userName, userRole);
     }
 
     @Override
