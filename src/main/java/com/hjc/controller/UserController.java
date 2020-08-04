@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -19,7 +20,7 @@ public class UserController {
     @Qualifier("userService")
     private UserService userService;
 
-    @RequestMapping("/frame")
+    @RequestMapping("jsp/frame")
     public String login() {
         return "frame";
     }
@@ -35,7 +36,7 @@ public class UserController {
         if (user != null) {
             request.getSession().setAttribute(Constants.USER_SESSION, user);
             //重定向到主页面
-            return "redirect:/frame";
+            return "redirect:/jsp/frame";
         } else {
             //设置session返回数据给页面
             request.getSession().setAttribute("error", "用户名或密码不正确");
@@ -43,5 +44,11 @@ public class UserController {
         }
     }
 
-
+    @RequestMapping("/jsp/logout.do")
+     public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute(Constants.USER_SESSION);
+        System.out.println("logout============");
+        return "redirect:/login.jsp";
+    }
 }

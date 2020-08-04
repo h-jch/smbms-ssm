@@ -23,7 +23,7 @@ public class SysFilter implements Filter {
         if (user != null) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            response.sendRedirect("/error.jsp");
+            response.sendRedirect(request.getContextPath() + "/error.jsp");
         }
     }
 
