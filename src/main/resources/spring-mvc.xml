@@ -19,4 +19,30 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!--配置fastjson-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html; charset=UTF-8</value>
+                        <value>application/json; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截所有请求-->
+            <mvc:mapping path="/**"/>
+            <!--排除-->
+            <mvc:exclude-mapping path="/user/login.do"/>
+            <bean class="com.hjc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

@@ -16,9 +16,9 @@ $(function(){
 	oldpassword.on("blur",function(){
 		$.ajax({
 			type:"GET",
-			url:path+"/user/user.do",
-			data:{method:"pwdmodify",oldpassword:oldpassword.val()},
-			dataType:"json",
+			url:path+"/user/matchPwd.do",
+			data:{oldpassword:oldpassword.val()},
+			dataType:"JSON",
 			success:function(data){
 				if(data.result == "true"){//旧密码正确
 					validateTip(oldpassword.next(),{"color":"green"},imgYes,true);
@@ -69,13 +69,13 @@ $(function(){
 		oldpassword.blur();
 		newpassword.blur();
 		rnewpassword.blur();
-		if(oldpassword.attr("validateStatus") == "true" 
+		if(oldpassword.attr("validateStatus") == "true"
 			&& newpassword.attr("validateStatus") == "true"
 			&& rnewpassword.attr("validateStatus") == "true"){
 			if(confirm("确定要修改密码？")){
 				$("#userForm").submit();
 			}
 		}
-		
+		return false;
 	});
 });

@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,30 +39,25 @@ public class UserController {
         return "frame";
     }
 
-    @RequestMapping("/pwdmodify")
-    public String modifyPassword() {
-        return "pwdmodify";
-    }
-
+    //登录
     @RequestMapping("/login.do")
-    public String doLogin(HttpServletRequest request) {
+    public String doLogin(HttpSession session, @RequestParam("userCode") String userCode, @RequestParam("userPassword") String userPassword) {
         System.out.println("login=====================");
-        String userCode = request.getParameter("userCode");
-        String userPassword = request.getParameter("userPassword");
 
         User user = userService.login(userCode, userPassword);
         System.out.println(user);
         if (user != null) {
-            request.getSession().setAttribute(Constants.USER_SESSION, user);
+            session.setAttribute(Constants.USER_SESSION, user);
             //重定向到主页面
             return "redirect:/user/frame";
         } else {
             //设置session返回数据给页面
-            request.getSession().setAttribute("error", "用户名或密码不正确");
+            session.setAttribute("error", "用户名或密码不正确");
             return "redirect:/login.jsp";
         }
     }
 
+    //退出
     @RequestMapping("/logout.do")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -68,7 +66,7 @@ public class UserController {
         return "redirect:/login.jsp";
     }
 
-    @RequestMapping("/user.do")
+    /*@RequestMapping("/user.do")
     public String userManage(HttpServletRequest request, HttpServletResponse response, Model model) {
         String method = request.getParameter("method");
         System.out.println("method==========>" + method);
@@ -86,7 +84,7 @@ public class UserController {
         } else {
             return "error";
         }
-    }
+    }*/
 
     private String query(HttpServletRequest request, HttpServletResponse response, Model model) {
         String queryUserName = request.getParameter("queryname");
@@ -131,33 +129,40 @@ public class UserController {
         return "userlist";
     }
 
-    private String matchPwd(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String oldPassword = request.getParameter("oldpassword");
-        User user = (User) request.getSession().getAttribute(Constants.USER_SESSION);
-
-        if (user != null) {
-            if (oldPassword == null || oldPassword.equals("")) {
-                model.addAttribute("result", "error");
-            } else {
-                if (oldPassword.equals(user.getUserPassword())) {
-                    model.addAttribute("result", "true");
-                } else {
-                    model.addAttribute("result", "false");
-                }
-            }
-        } else {
-            model.addAttribute("result", "sessionerror");
-        }
+    @RequestMapping(value = "/pwdmodify", method = RequestMethod.GET)
+    public String modifyPassword() {
         return "pwdmodify";
     }
 
-    private String updatePwd(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String newPassword = request.getParameter("newpassword");
-        User user = (User) request.getSession().getAttribute(Constants.USER_SESSION);
+    //验证旧密码，返回json
+    @ResponseBody
+    @RequestMapping(value = "/matchPwd.do")
+    public String matchPwd(HttpSession session, @RequestParam(value = "oldpassword", required = false) String oldPassword) {
+        System.out.println("matchPwd======================");
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String password = user.getUserPassword();
+        String result;
+        if (user == null) {
+            result = "sessionerror";
+        } else if (oldPassword == null || oldPassword.equals("")) {
+            result = "error";
+        } else if (oldPassword.equals(password)) {
+            result = "true";
+        } else {
+            result = "false";
+        }
+        return "{\"result\": \"" + result + "\"}";
+    }
+
+    //更新密码
+    @RequestMapping(value = "/updatePwd.do", method = RequestMethod.POST)
+    public String updatePwd(HttpSession session, @RequestParam("newpassword") String newPassword, Model model) {
+        System.out.println("updatePwd==================");
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
         if (user != null && newPassword != null && !newPassword.equals("")) {
             if (userService.updatePwd(user.getId(), newPassword)) {
                 model.addAttribute(Constants.SYS_MESSAGE, "修改密码成功，请重新登陆！");
-                request.getSession().removeAttribute(Constants.USER_SESSION);
+                session.removeAttribute(Constants.USER_SESSION);
             } else {
                 model.addAttribute(Constants.SYS_MESSAGE, "修改密码失败！");
             }

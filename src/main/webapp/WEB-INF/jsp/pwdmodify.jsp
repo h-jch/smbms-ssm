@@ -7,8 +7,7 @@
                 <span>密码修改页面</span>
             </div>
             <div class="providerAdd">
-                <form id="userForm" name="userForm" method="post" action="${pageContext.request.contextPath }/user/user.do">
-                    <input type="hidden" name="method" value="savepwd">
+                <form id="userForm" name="userForm" method="post" action="${pageContext.request.contextPath }/user/updatePwd.do">
                     <!--div的class 为error是验证错误，ok是验证成功-->
                     <div class="info">${message}</div>
                     <div class="">
@@ -35,4 +34,4 @@
         </div>
     </section>
 <%@include file="common/foot.jsp" %>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/pwdmodify.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/pwdmodify.js"></script>
