@@ -24,7 +24,7 @@ public interface UserMapper {
      * 条件查询userList
      * @param userName
      * @param userRole
-     * @param currentPageNo
+     * @param startNo
      * @param pageSize
      * @return
      */
@@ -65,5 +65,5 @@ public interface UserMapper {
      * @param pwd
      * @return
      */
-    int updatePwd(int id, String pwd);
+    int updatePwd(@Param("id") int id, @Param("userPassword") String pwd);
 }

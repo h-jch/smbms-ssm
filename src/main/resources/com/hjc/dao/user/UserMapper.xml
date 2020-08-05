@@ -36,4 +36,7 @@
         </if>
     </select>
 
+    <update id="updatePwd">
+        update smbms_user set userPassword = #{userPassword} where id = #{id}
+    </update>
 </mapper>

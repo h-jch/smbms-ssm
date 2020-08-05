@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -28,9 +31,14 @@ public class UserController {
     @Qualifier("roleService")
     private RoleService roleService;
 
-    @RequestMapping("jsp/frame")
+    @RequestMapping("/frame")
     public String login() {
         return "frame";
+    }
+
+    @RequestMapping("/pwdmodify")
+    public String modifyPassword() {
+        return "pwdmodify";
     }
 
     @RequestMapping("/login.do")
@@ -44,7 +52,7 @@ public class UserController {
         if (user != null) {
             request.getSession().setAttribute(Constants.USER_SESSION, user);
             //重定向到主页面
-            return "redirect:/jsp/frame";
+            return "redirect:/user/frame";
         } else {
             //设置session返回数据给页面
             request.getSession().setAttribute("error", "用户名或密码不正确");
@@ -52,7 +60,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/jsp/logout.do")
+    @RequestMapping("/logout.do")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute(Constants.USER_SESSION);
@@ -60,13 +68,21 @@ public class UserController {
         return "redirect:/login.jsp";
     }
 
-    @RequestMapping("/jsp/user.do")
+    @RequestMapping("/user.do")
     public String userManage(HttpServletRequest request, HttpServletResponse response, Model model) {
         String method = request.getParameter("method");
         System.out.println("method==========>" + method);
 
-        if (method != null && method.equals("query")) {
-            return query(request, response, model);
+        if (method != null) {
+            if (method.equals("query")) {
+                return query(request, response, model);
+            } else if (method.equals("pwdmodify")) {
+                return matchPwd(request, response, model);
+            } else if (method.equals("savepwd")) {
+                return updatePwd(request, response, model);
+            } else {
+                return "error";
+            }
         } else {
             return "error";
         }
@@ -113,5 +129,41 @@ public class UserController {
         model.addAttribute("currentPageNo", currentPageNo);
 
         return "userlist";
+    }
+
+    private String matchPwd(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String oldPassword = request.getParameter("oldpassword");
+        User user = (User) request.getSession().getAttribute(Constants.USER_SESSION);
+
+        if (user != null) {
+            if (oldPassword == null || oldPassword.equals("")) {
+                model.addAttribute("result", "error");
+            } else {
+                if (oldPassword.equals(user.getUserPassword())) {
+                    model.addAttribute("result", "true");
+                } else {
+                    model.addAttribute("result", "false");
+                }
+            }
+        } else {
+            model.addAttribute("result", "sessionerror");
+        }
+        return "pwdmodify";
+    }
+
+    private String updatePwd(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String newPassword = request.getParameter("newpassword");
+        User user = (User) request.getSession().getAttribute(Constants.USER_SESSION);
+        if (user != null && newPassword != null && !newPassword.equals("")) {
+            if (userService.updatePwd(user.getId(), newPassword)) {
+                model.addAttribute(Constants.SYS_MESSAGE, "修改密码成功，请重新登陆！");
+                request.getSession().removeAttribute(Constants.USER_SESSION);
+            } else {
+                model.addAttribute(Constants.SYS_MESSAGE, "修改密码失败！");
+            }
+        } else {
+            model.addAttribute(Constants.SYS_MESSAGE, "修改密码失败！");
+        }
+        return "pwdmodify";
     }
 }

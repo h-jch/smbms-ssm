@@ -45,4 +45,11 @@ public class UserServiceTest {
             System.out.println(user);
         }
     }
+
+    @Test
+    public void testUpdatePwd() {
+        int id = 1;
+        String pwd = "1111111";
+        System.out.println(userService.updatePwd(id, pwd));
+    }
 }

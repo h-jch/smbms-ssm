@@ -50,6 +50,6 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public int updatePwd(int id, String pwd) {
-        return 0;
+        return sqlSession.getMapper(UserMapper.class).updatePwd(id, pwd);
     }
 }
