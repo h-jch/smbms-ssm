@@ -47,8 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectUserCodeExist(String userCode) {
-        return null;
+    public User getUserByUserCode(String userCode) {
+        return userMapper.getLoginUser(userCode);
     }
 
     @Override

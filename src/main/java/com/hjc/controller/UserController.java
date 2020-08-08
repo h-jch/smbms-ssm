@@ -1,5 +1,6 @@
 package com.hjc.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hjc.pojo.Role;
 import com.hjc.pojo.User;
 import com.hjc.service.role.RoleService;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +90,8 @@ public class UserController {
         }
     }*/
 
-    private String query(HttpServletRequest request, HttpServletResponse response, Model model) {
+    @RequestMapping("/user.do")
+    public String query(HttpServletRequest request, HttpServletResponse response, Model model) {
         String queryUserName = request.getParameter("queryname");
         String temp = request.getParameter("queryUserRole");
         String pageIndex = request.getParameter("pageIndex");
@@ -127,6 +132,65 @@ public class UserController {
         model.addAttribute("currentPageNo", currentPageNo);
 
         return "userlist";
+    }
+
+    @RequestMapping("/useradd.do")
+    public String toUserAdd(Model model) {
+        List<Role> roleList = roleService.getRoleList();
+        model.addAttribute("userRole", roleList);
+        return "useradd";
+    }
+
+    @RequestMapping("/add.do")
+    public String userAdd(HttpServletRequest request, HttpSession session) {
+        String userCode = request.getParameter("userCode");
+        String userName = request.getParameter("userName");
+        String userPassword = request.getParameter("userPassword");
+        Integer gender = Integer.parseInt(request.getParameter("gender"));
+        String date = request.getParameter("birthday");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        Integer userRole = Integer.parseInt(request.getParameter("userRole"));
+        User user = new User();
+        user.setUserCode(userCode);
+        user.setUserName(userName);
+        user.setUserPassword(userPassword);
+        user.setGender(gender);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            user.setBirthday(sdf.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        user.setPhone(phone);
+        user.setAddress(address);
+        user.setUserRole(userRole);
+
+        User createUser = (User) session.getAttribute(Constants.USER_SESSION);
+        int createById =createUser.getId();
+        user.setCreatedBy(createById);
+        if (userService.add(user)) {
+            return "redirect:/user/user.do";
+        } else {
+            return "useradd";
+        }
+    }
+
+    //判断要添加的userCode是否存在，返回json
+    @ResponseBody
+    @RequestMapping("/getUserByUserCode.do")
+    public String checkUserCode(@RequestParam("userCode") String userCode) {
+        if (userCode == null || userCode.equals("")) {
+            return "{\"result\": \"empty\"}";
+        }
+        User user = userService.getUserByUserCode(userCode);
+        String result;
+        if (user != null) {
+            result = "exist";
+        } else {
+            result = "notexist";
+        }
+        return "{\"result\": \"" + result + "\"}";
     }
 
     @RequestMapping(value = "/pwdmodify", method = RequestMethod.GET)

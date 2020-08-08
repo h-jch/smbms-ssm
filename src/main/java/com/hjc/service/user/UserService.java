@@ -43,7 +43,7 @@ public interface UserService {
      * @param userCode
      * @return
      */
-    User selectUserCodeExist(String userCode);
+    User getUserByUserCode(String userCode);
 
     /**
      * 根据ID删除user
