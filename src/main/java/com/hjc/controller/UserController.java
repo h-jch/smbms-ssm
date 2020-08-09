@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,19 +46,19 @@ public class UserController {
 
     //登录
     @RequestMapping("/login.do")
-    public String doLogin(HttpSession session, @RequestParam("userCode") String userCode, @RequestParam("userPassword") String userPassword) {
+    public String doLogin(HttpSession session, @RequestParam("userCode") String userCode, @RequestParam("userPassword") String userPassword, Model model) {
         System.out.println("login=====================");
 
         User user = userService.login(userCode, userPassword);
-        System.out.println(user);
+        //System.out.println(user);
         if (user != null) {
             session.setAttribute(Constants.USER_SESSION, user);
             //重定向到主页面
             return "redirect:/user/frame";
         } else {
-            //设置session返回数据给页面
-            session.setAttribute("error", "用户名或密码不正确");
-            return "redirect:/login.jsp";
+            model.addAttribute("error", "用户名或密码不正确");
+            //不经过视图解析器的转发
+            return "forward:/login.jsp";
         }
     }
 
@@ -69,26 +70,6 @@ public class UserController {
         System.out.println("logout============");
         return "redirect:/login.jsp";
     }
-
-    /*@RequestMapping("/user.do")
-    public String userManage(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String method = request.getParameter("method");
-        System.out.println("method==========>" + method);
-
-        if (method != null) {
-            if (method.equals("query")) {
-                return query(request, response, model);
-            } else if (method.equals("pwdmodify")) {
-                return matchPwd(request, response, model);
-            } else if (method.equals("savepwd")) {
-                return updatePwd(request, response, model);
-            } else {
-                return "error";
-            }
-        } else {
-            return "error";
-        }
-    }*/
 
     @RequestMapping("/user.do")
     public String query(HttpServletRequest request, HttpServletResponse response, Model model) {
