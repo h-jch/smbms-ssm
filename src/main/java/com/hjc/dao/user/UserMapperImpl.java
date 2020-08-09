@@ -34,18 +34,18 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public int deleteUserById(Integer delId) {
-        return 0;
+    public int deleteUserById(int delId) {
+        return sqlSession.getMapper(UserMapper.class).deleteUserById(delId);
     }
 
     @Override
     public User getUserById(int id) {
-        return null;
+        return sqlSession.getMapper(UserMapper.class).getUserById(id);
     }
 
     @Override
     public int modify(User user) {
-        return 0;
+        return sqlSession.getMapper(UserMapper.class).modify(user);
     }
 
     @Override

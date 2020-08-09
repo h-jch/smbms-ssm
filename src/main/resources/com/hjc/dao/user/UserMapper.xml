@@ -39,4 +39,16 @@
     <update id="updatePwd">
         update smbms_user set userPassword = #{userPassword} where id = #{id}
     </update>
+
+    <select id="getUserById" resultType="user">
+        select * from smbms_user where id = #{id}
+    </select>
+
+    <update id="modify" parameterType="user">
+        update smbms_user set userName = #{userName}, gender = #{gender}, birthday = #{birthday}, phone = #{phone}, address = #{address}, userRole = #{userRole} where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="int">
+        delete from smbms_user where id = #{id}
+    </delete>
 </mapper>

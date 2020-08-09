@@ -43,14 +43,14 @@ public interface UserMapper {
      * @param delId
      * @return
      */
-    int deleteUserById(Integer delId);
+    int deleteUserById(@Param("id") int delId);
 
     /**
      * 通过id获得用户
      * @param id
      * @return
      */
-    User getUserById(int id);
+    User getUserById(@Param("id") int id);
 
     /**
      * 修改用户

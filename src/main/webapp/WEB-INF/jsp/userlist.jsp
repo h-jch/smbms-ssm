@@ -42,10 +42,10 @@
                    <c:forEach var="user" items="${userList}" varStatus="status">
 					<tr>
 						<td>
-						<span>${user.userCode}</span>
+							<span>${user.userCode}</span>
 						</td>
 						<td>
-						<span>${user.userName}</span>
+							<span>${user.userName}</span>
 						</td>
 						<td>
 							<span>
@@ -54,18 +54,18 @@
 							</span>
 						</td>
 						<td>
-						<span>${user.age}</span>
+							<span>${user.age}</span>
 						</td>
 						<td>
-						<span>${user.phone}</span>
+							<span>${user.phone}</span>
 						</td>
 						<td>
 							<span>${user.userRoleName}</span>
 						</td>
 						<td>
-						<span><a class="viewUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/read.png" alt="查看" title="查看"/></a></span>
-						<span><a class="modifyUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/xiugai.png" alt="修改" title="修改"/></a></span>
-						<span><a class="deleteUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/schu.png" alt="删除" title="删除"/></a></span>
+							<span><a class="viewUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/read.png" alt="查看" title="查看"/></a></span>
+							<span><a class="modifyUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/xiugai.png" alt="修改" title="修改"/></a></span>
+							<span><a class="deleteUser" href="javascript:;" userid=${user.id} username=${user.userName }><img src="${pageContext.request.contextPath }/images/schu.png" alt="删除" title="删除"/></a></span>
 						</td>
 					</tr>
 				</c:forEach>

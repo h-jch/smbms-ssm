@@ -53,17 +53,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUserById(Integer delId) {
-        return false;
+        if (userMapper.deleteUserById(delId) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public User getUserById(int id) {
-        return null;
+        return userMapper.getUserById(id);
     }
 
     @Override
     public boolean modify(User user) {
-        return false;
+        if (userMapper.modify(user) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -1,11 +1,11 @@
 var userObj;
 
 //用户管理页面上点击删除按钮弹出删除框(userlist.jsp)
-function deleteUser(obj){
+/*function deleteUser(obj){
 	$.ajax({
 		type:"GET",
-		url:path+"/jsp/user.do",
-		data:{method:"deluser",uid:obj.attr("userid")},
+		url:path+"/user/delUser.do",
+		data:{uid:obj.attr("userid")},
 		dataType:"json",
 		success:function(data){
 			if(data.delResult == "true"){//删除成功：移除删除行
@@ -24,7 +24,7 @@ function deleteUser(obj){
 			changeDLGContent("对不起，删除失败");
 		}
 	});
-}
+}*/
 
 function openYesOrNoDLG(){
 	$('.zhezhao').css('display', 'block');
@@ -50,12 +50,12 @@ $(function(){
 	$(".viewUser").on("click",function(){
 		//将被绑定的元素（a）转换成jquery对象，可以使用jquery方法
 		var obj = $(this);
-		window.location.href=path+"/jsp/user.do?method=view&uid="+ obj.attr("userid");
+		window.location.href=path+"/user/view.do?uid="+ obj.attr("userid");
 	});
 	
 	$(".modifyUser").on("click",function(){
 		var obj = $(this);
-		window.location.href=path+"/jsp/user.do?method=modify&uid="+ obj.attr("userid");
+		window.location.href=path+"/user/modify.do?uid="+ obj.attr("userid");
 	});
 
 	$('#no').click(function () {
@@ -66,19 +66,19 @@ $(function(){
 		deleteUser(userObj);
 	});
 
-	$(".deleteUser").on("click",function(){
+/*	$(".deleteUser").on("click",function(){
 		userObj = $(this);
 		changeDLGContent("你确定要删除用户【"+userObj.attr("username")+"】吗？");
 		openYesOrNoDLG();
-	});
+	});*/
 	
-	/*$(".deleteUser").on("click",function(){
+	$(".deleteUser").on("click",function(){
 		var obj = $(this);
 		if(confirm("你确定要删除用户【"+obj.attr("username")+"】吗？")){
 			$.ajax({
 				type:"GET",
-				url:path+"/jsp/user.do",
-				data:{method:"deluser",uid:obj.attr("userid")},
+				url:path+"/user/delUser.do",
+				data:{uid:obj.attr("userid")},
 				dataType:"json",
 				success:function(data){
 					if(data.delResult == "true"){//删除成功：移除删除行
@@ -95,5 +95,5 @@ $(function(){
 				}
 			});
 		}
-	});*/
+	});
 });

@@ -21,8 +21,7 @@ $(function(){
 	
 	$.ajax({
 		type:"GET",//请求类型
-		url:path+"/jsp/user.do",//请求的url
-		data:{method:"getrolelist"},//请求参数
+		url:path+"/role/getAjaxRoleList.do",//请求的url
 		dataType:"json",//ajax接口（请求url）返回的数据类型
 		success:function(data){//data：返回数据（json对象）
 			if(data != null){
@@ -73,7 +72,7 @@ $(function(){
 	phone.on("focus",function(){
 		validateTip(phone.next(),{"color":"#666666"},"* 请输入手机号",false);
 	}).on("blur",function(){
-		var patrn=/^(13[0-9]|15[0-9]|18[0-9])\d{8}$/;
+		var patrn=/^(1[0-9][0-9]|15[0-9]|18[0-9])\d{8}$/;
 		if(phone.val().match(patrn)){
 			validateTip(phone.next(),{"color":"green"},imgYes,true);
 		}else{

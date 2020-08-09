@@ -136,6 +136,7 @@ public class UserController {
 
     @RequestMapping("/useradd.do")
     public String toUserAdd(Model model) {
+        //进入页面的时候显示下拉框的内容
         List<Role> roleList = roleService.getRoleList();
         model.addAttribute("userRole", roleList);
         return "useradd";
@@ -156,7 +157,7 @@ public class UserController {
         user.setUserName(userName);
         user.setUserPassword(userPassword);
         user.setGender(gender);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             user.setBirthday(sdf.parse(date));
         } catch (ParseException e) {
@@ -165,7 +166,7 @@ public class UserController {
         user.setPhone(phone);
         user.setAddress(address);
         user.setUserRole(userRole);
-
+        user.setCreationDate(new Date());
         User createUser = (User) session.getAttribute(Constants.USER_SESSION);
         int createById =createUser.getId();
         user.setCreatedBy(createById);
@@ -191,6 +192,66 @@ public class UserController {
             result = "notexist";
         }
         return "{\"result\": \"" + result + "\"}";
+    }
+
+    @RequestMapping("/view.do")
+    public String userView(@RequestParam("uid") int id, Model model) {
+        User user = userService.getUserById(id);
+        int userRole = user.getUserRole();
+        //设置用户角色
+        if (userRole == 1) {
+            user.setUserRoleName("系统管理员");
+        } else if (userRole == 2) {
+            user.setUserRoleName("经理");
+        } else if (userRole == 3) {
+            user.setUserRoleName("普通员工");
+        }
+
+        System.out.println(user);
+        model.addAttribute("user", user);
+        return "userview";
+    }
+
+    @RequestMapping("/modify.do")
+    public String modify(@RequestParam("uid") int id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "usermodify";
+    }
+
+    @RequestMapping("/saveUser.do")
+    public String saveUser(HttpSession session, @RequestParam("uid") int id, User user) {
+        System.out.println("saveUser=====================");
+        user.setId(id);
+        int createId = ((User) session.getAttribute(Constants.USER_SESSION)).getId();
+        user.setModifyBy(createId);
+        user.setModifyDate(new Date());
+        //System.out.println(user);
+        if (userService.modify(user)) {
+            //System.out.println("success");
+            return "redirect:/user/user.do";
+        } else {
+            //System.out.println("fail");
+            return "usermodify";
+        }
+    }
+
+    //返回json
+    @ResponseBody
+    @RequestMapping("/delUser.do")
+    public String delUser(@RequestParam("uid") int id) {
+        String delResult;
+        if (userService.getUserById(id) == null) {
+            delResult = "notexist";
+        } else if (userService.deleteUserById(id)) {
+            delResult = "true";
+            System.out.println("delete success");
+        } else {
+            delResult = "false";
+            System.out.println("delete failed");
+        }
+        //System.out.println(delResult);
+        return "{\"deResult\": \"" + delResult + "\"}";
     }
 
     @RequestMapping(value = "/pwdmodify", method = RequestMethod.GET)
