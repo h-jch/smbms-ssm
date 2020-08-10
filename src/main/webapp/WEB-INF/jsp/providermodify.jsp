@@ -18,19 +18,19 @@
               <div>
                   <label for="proName">供应商名称：</label>
                  <input type="text" name="proName" id="proName" value="${provider.proName}">
-			<font color="red"></font>
+                  <font color="red"></font>
               </div>
               
               <div>
                   <label for="proContact">联系人：</label>
                   <input type="text" name="proContact" id="proContact" value="${provider.proContact}">
-			<font color="red"></font>
+                  <font color="red"></font>
               </div>
               
               <div>
                   <label for="proPhone">联系电话：</label>
                   <input type="text" name="proPhone" id="proPhone" value="${provider.proPhone}">
-			<font color="red"></font>
+                  <font color="red"></font>
               </div>
               
               <div>
@@ -56,4 +56,4 @@
   </div>
 </section>
 <%@include file="common/foot.jsp" %>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/providermodify.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/providermodify.js"></script>

@@ -8,7 +8,7 @@
             <span>供应商管理页面</span>
         </div>
         <div class="search">
-        	<form method="get" action="${pageContext.request.contextPath }/provider/provider.do">
+        	<form method="get" action="${pageContext.request.contextPath}/provider/provider.do">
 				<span>供应商编码：</span>
 				<input name="queryProCode" type="text" value="${queryProCode}">
 				
@@ -16,7 +16,7 @@
 				<input name="queryProName" type="text" value="${queryProName}">
 				
 				<input value="查 询" type="submit" id="searchbutton">
-				<a href="${pageContext.request.contextPath }/provider/provideradd.do">添加供应商</a>
+				<a href="${pageContext.request.contextPath}/provider/provideradd.do">添加供应商</a>
 			</form>
         </div>
         <!--供应商操作表格-->
@@ -33,10 +33,10 @@
             <c:forEach var="provider" items="${providerList}" varStatus="status">
 				<tr>
 					<td>
-					<span>${provider.proCode }</span>
+					<span>${provider.proCode}</span>
 					</td>
 					<td>
-					<span>${provider.proName }</span>
+					<span>${provider.proName}</span>
 					</td>
 					<td>
 					<span>${provider.proContact}</span>
@@ -78,4 +78,4 @@
 </div>
 
 <%@include file="common/foot.jsp" %>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/providerlist.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/providerlist.js"></script>

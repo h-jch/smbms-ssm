@@ -48,7 +48,7 @@ public class BillController {
         model.addAttribute("billList", billList);
         model.addAttribute("queryProductName", productName);
         model.addAttribute("queryIsPayment", isPayment);
-        model.addAttribute("proId", proId);
+        model.addAttribute("queryProviderId", proId);
         /*session.setAttribute("billList", billList);
         session.setAttribute("queryProductName", productName);
         session.setAttribute("queryIsPayment", isPayment);

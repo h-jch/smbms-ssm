@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="common/head.jsp"%>
-<%--<%
-    if(session.getAttribute("providerList")==null){
-        response.sendRedirect("/smbms/provider/getProviderNameAll.do");
-    }
-%>--%>
+
 <div class="right">
      <div class="location">
          <strong>你现在所在的位置是:</strong>
          <span>订单管理页面 >> 订单添加页面</span>
      </div>
      <div class="providerAdd">
-         <form  id="billFrom" method="post" action="${pageContext.request.contextPath}/bill/add.do">
+         <form id="billFrom" name="billForm" method="post" action="${pageContext.request.contextPath}/bill/add.do">
              <!--div的class 为error是验证错误，ok是验证成功-->
-             <input type="hidden" name="method" value="add">
              <div class="">
                  <label for="billCode">订单编码：</label>
                  <input type="text" name="billCode" class="text" id="billCode" value=""> 
@@ -66,8 +61,6 @@
      </div>
  </div>
 </section>
-<%--<%
-    session.removeAttribute("providerList");
-%>--%>
+
 <%@include file="common/foot.jsp" %>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/billadd.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/billadd.js"></script>
