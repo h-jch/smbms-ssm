@@ -34,4 +34,28 @@ public class ProviderServiceTest {
         Provider provider = providerService.getProviderById(id);
         System.out.println(provider);
     }
+
+    @Test
+    public void testGetProviderList1() {
+        String proCode = "bj";
+        String proName = null;
+        List<Provider> providerList = providerService.getProviderList(proCode, proName);
+        for (Provider provider : providerList) {
+            System.out.println(provider);
+        }
+    }
+
+    @Test
+    public void testUpdateProvider() {
+        Provider provider = new Provider();
+        provider.setId(16);
+        provider.setProCode("test");
+        provider.setProName("test1");
+        provider.setProContact("test1");
+        provider.setProPhone("11111111111");
+        provider.setProAddress("test1");
+        provider.setProFax("test1");
+        provider.setProDesc("test1");
+        providerService.updateProvider(provider);
+    }
 }

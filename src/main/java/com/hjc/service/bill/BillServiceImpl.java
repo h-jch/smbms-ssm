@@ -50,4 +50,9 @@ public class BillServiceImpl implements BillService {
             return false;
         }
     }
+
+    @Override
+    public int getCountByProId(int proId) {
+        return billMapper.getCountByProId(proId);
+    }
 }

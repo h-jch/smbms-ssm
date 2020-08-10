@@ -23,4 +23,6 @@ public interface BillMapper {
     int updateBill(Bill bill);
 
     int deleteBillById(@Param("id") int id);
+
+    int getCountByProId(@Param("providerId") int proId);
 }

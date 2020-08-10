@@ -59,4 +59,10 @@ public class BillServiceTest {
         Bill bill = billService.getBillById(id);
         System.out.println(bill);
     }
+
+    @Test
+    public void testGetCountByProId() {
+        int proId = 3;
+        System.out.println(billService.getCountByProId(proId));
+    }
 }

@@ -22,4 +22,24 @@ public class ProviderMapperImpl implements ProviderMapper {
     public Provider getProviderById(int id) {
         return sqlSession.getMapper(ProviderMapper.class).getProviderById(id);
     }
+
+    @Override
+    public List<Provider> getProviderListByKey(String proCode, String proName) {
+        return sqlSession.getMapper(ProviderMapper.class).getProviderListByKey(proCode, proName);
+    }
+
+    @Override
+    public int addProvider(Provider provider) {
+        return sqlSession.getMapper(ProviderMapper.class).addProvider(provider);
+    }
+
+    @Override
+    public int updateProvider(Provider provider) {
+        return sqlSession.getMapper(ProviderMapper.class).updateProvider(provider);
+    }
+
+    @Override
+    public int deleteProviderById(int id) {
+        return sqlSession.getMapper(ProviderMapper.class).deleteProviderById(id);
+    }
 }

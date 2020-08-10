@@ -14,4 +14,6 @@ public interface BillService {
     boolean updateBill(Bill bill);
 
     boolean deleteBillById(int id);
+
+    int getCountByProId(int proId);
 }

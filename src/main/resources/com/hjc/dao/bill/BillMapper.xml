@@ -67,4 +67,8 @@
     <delete id="deleteBillById" parameterType="int">
         delete from smbms_bill where id = #{id}
     </delete>
+
+    <select id="getCountByProId" parameterType="int" resultType="int">
+        select count(1) from smbms_bill where providerId = #{providerId}
+    </select>
 </mapper>

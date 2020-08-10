@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hjc.dao.provider.ProviderMapper">
+
     <select id="getProviderList" resultType="provider">
         select * from smbms_provider;
     </select>
@@ -10,4 +11,34 @@
     <select id="getProviderById" resultType="provider">
         select * from smbms_provider where id = #{id}
     </select>
+
+    <select id="getProviderListByKey" resultType="provider">
+        select * from smbms_provider
+        <where>
+            <if test="proCode != null">
+                proCode like "%"#{proCode}"%"
+            </if>
+            <if test="proName != null">
+                and proName like "%"#{proName}"%"
+            </if>
+        </where>
+        order by creationDate DESC
+    </select>
+
+    <insert id="addProvider" parameterType="provider">
+        insert into smbms_provider (proCode, proName, proDesc, proContact, proPhone, proAddress,
+        proFax, createdBy, creationDate) values (#{proCode}, #{proName}, #{proDesc}, #{proContact}, #{proPhone},
+        #{proAddress}, #{proFax}, #{createdBy}, #{creationDate});
+    </insert>
+
+    <update id="updateProvider" keyProperty="provider">
+        update smbms_provider set proCode = #{proCode}, proName = #{proName}, proContact = #{proContact},
+        proPhone = #{proPhone}, proAddress = #{proAddress}, proFax = #{proFax}, proDesc = #{proDesc}
+        where id= #{id}
+    </update>
+
+    <delete id="deleteProviderById" parameterType="int">
+        delete from smbms_provider where id = ${id}
+    </delete>
+
 </mapper>

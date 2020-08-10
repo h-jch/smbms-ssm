@@ -9,8 +9,7 @@
         </div>
         <div class="providerAdd">
           <form id="billForm" name="billForm" method="post" action="${pageContext.request.contextPath }/bill/save.do">
-				<input type="hidden" name="method" value="modifysave">
-				<input type="hidden" name="id" value="${bill.id }">
+				<input type="hidden" name="id" value="${bill.id}">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div class="">
                     <label for="billCode">订单编码：</label>

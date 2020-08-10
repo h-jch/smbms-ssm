@@ -37,4 +37,9 @@ public class BillMapperImpl implements BillMapper{
     public int deleteBillById(int id) {
         return sqlSession.getMapper(BillMapper.class).deleteBillById(id);
     }
+
+    @Override
+    public int getCountByProId(int proId) {
+        return sqlSession.getMapper(BillMapper.class).getCountByProId(proId);
+    }
 }
