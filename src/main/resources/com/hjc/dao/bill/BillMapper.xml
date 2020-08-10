@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjc.dao.bill.BillMapper">
+    <select id="getBillList" resultMap="billPlusProvider">
+        select b.*, p.* from smbms_bill b, smbms_provider p where b.providerId = p.id
+        <if test="productName != null">
+            and b.productName like "%"#{productName}"%"
+        </if>
+        <if test="providerId > 0">
+            and b.providerId = #{providerId}
+        </if>
+        <if test="isPayment > 0">
+            and b.isPayment = #{isPayment}
+        </if>
+        order by b.creationDate DESC
+    </select>
+    
+    <resultMap id="billPlusProvider" type="bill">
+        <id property="id" column="id"/>
+        <result property="billCode" column="billCode"/>
+        <result property="productName" column="productName"/>
+        <result property="productDesc" column="productDesc"/>
+        <result property="productUnit" column="productUnit"/>
+        <result property="productCount" column="productCount"/>
+        <result property="totalPrice" column="totalPrice"/>
+        <result property="isPayment" column="isPayment"/>
+        <result property="providerId" column="providerId"/>
+        <result property="createdBy" column="createdBy"/>
+        <result property="creationDate" column="creationDate"/>
+        <result property="modifyBy" column="modifyBy"/>
+        <result property="modifyDate" column="modifyDate"/>
+        <association property="provider" javaType="provider">
+            <id property="id" column="id"/>
+            <result property="proCode" column="proCode"/>
+            <result property="proName" column="proName"/>
+            <result property="proDesc" column="proDesc"/>
+            <result property="proContact" column="proContact"/>
+            <result property="proPhone" column="proPhone"/>
+            <result property="proAddress" column="proAddress"/>
+            <result property="proFax" column="proFax"/>
+            <result property="createdBy" column="createdBy"/>
+            <result property="creationDate" column="creationDate"/>
+            <result property="modifyBy" column="modifyBy"/>
+            <result property="modifyDate" column="modifyDate"/>
+        </association>
+    </resultMap>
+
+    <insert id="addBill" parameterType="bill">
+        insert into smbms_bill (billCode, productName, productUnit, productCount,
+        totalPrice, isPayment, createdBy, creationDate, providerId)
+        values (#{billCode}, #{productName}, #{productUnit}, #{productCount},
+        #{totalPrice}, #{isPayment}, #{createdBy}, #{creationDate}, #{providerId})
+    </insert>
+
+    <select id="getBillById" resultType="bill">
+        select * from smbms_bill where id = #{id}
+    </select>
+
+    <update id="updateBill" parameterType="bill">
+        update smbms_bill set billCode = #{billCode}, productName = #{productName}, productUnit = #{productUnit},
+        productCount = #{productCount}, totalPrice = #{totalPrice}, providerId = #{providerId}, isPayment = #{isPayment}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBillById" parameterType="int">
+        delete from smbms_bill where id = #{id}
+    </delete>
+</mapper>

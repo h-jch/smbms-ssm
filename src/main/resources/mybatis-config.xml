@@ -10,5 +10,7 @@
     <mappers>
         <mapper resource="com/hjc/dao/user/UserMapper.xml"/>
         <mapper resource="com/hjc/dao/role/RoleMapper.xml"/>
+        <mapper resource="com/hjc/dao/bill/BillMapper.xml"/>
+        <mapper resource="com/hjc/dao/provider/ProviderMapper.xml"/>
     </mappers>
 </configuration>

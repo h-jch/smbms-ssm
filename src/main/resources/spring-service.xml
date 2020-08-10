@@ -21,4 +21,12 @@
         <property name="roleMapper" ref="roleMapper"/>
     </bean>
 
+    <bean id="billService" class="com.hjc.service.bill.BillServiceImpl">
+        <property name="billMapper" ref="billMapper"/>
+    </bean>
+
+    <bean id="providerService" class="com.hjc.service.provider.ProviderServiceImpl">
+        <property name="providerMapper" ref="providerMapper"/>
+    </bean>
+
 </beans>

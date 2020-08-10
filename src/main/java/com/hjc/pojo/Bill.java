@@ -18,7 +18,26 @@ public class Bill implements Serializable {
 	private Date creationDate; //创建时间
 	private Integer modifyBy; //更新者
 	private Date modifyDate;//更新时间
-	private String providerName;//供应商名称
+	//一个订单关联一个供应商
+	private Provider provider;
+
+	private String providerName;
+
+	public String getProviderName() {
+		return providerName;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
 
 	public Integer getId() {
 		return id;
@@ -124,14 +143,6 @@ public class Bill implements Serializable {
 		this.modifyDate = modifyDate;
 	}
 
-	public String getProviderName() {
-		return providerName;
-	}
-
-	public void setProviderName(String providerName) {
-		this.providerName = providerName;
-	}
-
 	@Override
 	public String toString() {
 		return "Bill{" +
@@ -148,7 +159,7 @@ public class Bill implements Serializable {
 				", creationDate=" + creationDate +
 				", modifyBy=" + modifyBy +
 				", modifyDate=" + modifyDate +
-				", providerName='" + providerName + '\'' +
+				", provider='" + provider + '\'' +
 				'}';
 	}
 }

@@ -1,6 +1,8 @@
-package com.hjc.service.user;
+package com.hjc.service;
 
 import com.hjc.pojo.User;
+import com.hjc.service.user.UserService;
+import com.hjc.service.user.UserServiceImpl;
 import com.hjc.tools.Constants;
 import org.junit.Before;
 import org.junit.Test;

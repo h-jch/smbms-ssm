@@ -1,6 +1,8 @@
-package com.hjc.service.role;
+package com.hjc.service;
 
 import com.hjc.pojo.Role;
+import com.hjc.service.role.RoleService;
+import com.hjc.service.role.RoleServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
