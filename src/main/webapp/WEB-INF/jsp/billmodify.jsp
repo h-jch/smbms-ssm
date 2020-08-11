@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="common/head.jsp"%>
 
-<div class="right">
+    <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
             <span>订单管理页面 >> 订单添加页面</span>
@@ -59,7 +59,6 @@
               	</div>
             </form>
         </div>
-
     </div>
 </section>
 

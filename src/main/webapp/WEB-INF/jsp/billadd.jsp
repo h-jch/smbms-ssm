@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@include file="common/head.jsp"%>
 
-<div class="right">
-     <div class="location">
-         <strong>你现在所在的位置是:</strong>
-         <span>订单管理页面 >> 订单添加页面</span>
-     </div>
-     <div class="providerAdd">
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>订单管理页面 >> 订单添加页面</span>
+        </div>
+        <div class="providerAdd">
          <form id="billFrom" name="billForm" method="post" action="${pageContext.request.contextPath}/bill/add.do">
              <!--div的class 为error是验证错误，ok是验证成功-->
              <div class="">
@@ -58,8 +58,8 @@
 				  <input type="button" id="back" name="back" value="返回" >
              </div>
          </form>
-     </div>
- </div>
+        </div>
+    </div>
 </section>
 
 <%@include file="common/foot.jsp" %>

@@ -25,20 +25,18 @@
         <a href="#">温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</a>
     </section>
  <!--主体内容-->
- <section class="publicMain">
-     <div class="left">
-         <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
-         <nav>
-             <ul class="list">
-                 <li ><a href="${pageContext.request.contextPath}/bill/bill.do">订单管理</a></li>
-                 <li><a href="${pageContext.request.contextPath}/provider/provider.do">供应商管理</a></li>
-                 <li><a href="${pageContext.request.contextPath}/user/user.do">用户管理</a></li>
-                 <li><a href="${pageContext.request.contextPath}/user/pwdmodify">密码修改</a></li>
-                 <li><a href="${pageContext.request.contextPath}/user/logout.do">退出系统</a></li>
-             </ul>
-         </nav>
-     </div>
-     <input type="hidden" id="path" name="path" value="${pageContext.request.contextPath}"/>
-     <input type="hidden" id="referer" name="referer" value="<%=request.getHeader("Referer")%>"/>
- </section>
-</body>
+    <section class="publicMain">
+        <div class="left">
+            <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+            <nav>
+                <ul class="list">
+                    <li ><a href="${pageContext.request.contextPath}/bill/bill.do">订单管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/provider/provider.do">供应商管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/user.do">用户管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/pwdmodify">密码修改</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/logout.do">退出系统</a></li>
+                </ul>
+            </nav>
+        </div>
+        <input type="hidden" id="path" name="path" value="${pageContext.request.contextPath}"/>
+        <input type="hidden" id="referer" name="referer" value="<%=request.getHeader("Referer")%>"/>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="common/head.jsp"%>
 
-<div class="right">
+    <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
             <span>供应商管理页面 >> 供应商添加页面</span>
@@ -48,9 +48,9 @@
                     <input type="button" name="add" id="add" value="保存">
 					<input type="button" id="back" name="back" value="返回" >
                 </div>
-            </form>
-     </div>
-</div>
+           </form>
+        </div>
+    </div>
 </section>
 <%@include file="common/foot.jsp" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/provideradd.js"></script>
